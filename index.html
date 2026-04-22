@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diego | Portafolio</title>
+  <meta name="description" content="Portafolio de Diego - Desarrollador Backend especializado en Go, APIs REST y MySQL">
+  <meta name="author" content="ninjadiego">
+  <title>Diego | Backend Developer</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥷</text></svg>">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -13,35 +17,112 @@
       min-height: 100vh;
       line-height: 1.6;
     }
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #334155;
+      z-index: 100;
+    }
+    nav ul {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #60a5fa; }
     .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
     header {
       text-align: center;
-      padding: 4rem 0;
-      border-bottom: 1px solid #334155;
+      padding: 5rem 0 4rem;
     }
     h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       background: linear-gradient(90deg, #3b82f6, #8b5cf6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 0.5rem;
     }
-    .subtitle { color: #94a3b8; font-size: 1.2rem; }
-    section { padding: 3rem 0; }
+    .subtitle { color: #94a3b8; font-size: 1.3rem; margin-bottom: 1.5rem; }
+    .cta {
+      display: inline-block;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59,130,246,0.3); }
+    section {
+      padding: 3rem 0;
+      border-top: 1px solid #1e293b;
+    }
     h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
       color: #60a5fa;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .skills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill {
+    .skills-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .skill-cat {
       background: #1e293b;
-      border: 1px solid #3b82f6;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
+      padding: 1.5rem;
+      border-radius: 10px;
+      border: 1px solid #334155;
     }
-    .projects { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .skill-cat h3 { color: #8b5cf6; margin-bottom: 0.8rem; font-size: 1.1rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill {
+      background: #0f172a;
+      border: 1px solid #3b82f6;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+    }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #3b82f6;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.65rem;
+      top: 0.4rem;
+      width: 12px;
+      height: 12px;
+      background: #8b5cf6;
+      border-radius: 50%;
+      border: 3px solid #0f172a;
+    }
+    .timeline-item h3 { color: #60a5fa; margin-bottom: 0.3rem; }
+    .timeline-item .meta { color: #94a3b8; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .projects { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
     .project {
       background: #1e293b;
       padding: 1.5rem;
@@ -51,67 +132,177 @@
     }
     .project:hover { transform: translateY(-4px); border-color: #3b82f6; }
     .project h3 { color: #60a5fa; margin-bottom: 0.5rem; }
-    .project a { color: #8b5cf6; text-decoration: none; font-weight: 600; }
+    .project .tech { font-size: 0.85rem; color: #8b5cf6; margin: 0.5rem 0; }
+    .project a { color: #60a5fa; text-decoration: none; font-weight: 600; }
     .project a:hover { text-decoration: underline; }
+    .contact-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      margin-top: 1.5rem;
+    }
+    .contact-card {
+      background: #1e293b;
+      padding: 1.2rem;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .contact-card:hover { border-color: #8b5cf6; }
+    .contact-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .contact-card a { color: #60a5fa; text-decoration: none; font-weight: 600; }
     footer {
       text-align: center;
       padding: 2rem 0;
       border-top: 1px solid #334155;
       color: #94a3b8;
-    }
-    .social { margin-top: 1rem; }
-    .social a {
-      color: #60a5fa;
-      text-decoration: none;
-      margin: 0 0.5rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
+  <nav>
+    <ul>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#educacion">Educación</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
   <div class="container">
     <header>
       <h1>👋 Hola, soy Diego</h1>
-      <p class="subtitle">Desarrollador apasionado por la tecnología</p>
+      <p class="subtitle">Desarrollador Backend · Go · APIs REST · MySQL</p>
+      <a href="#contacto" class="cta">Contáctame 🚀</a>
     </header>
 
-    <section>
+    <section id="sobre-mi">
       <h2>🧑‍💻 Sobre mí</h2>
-      <p>Soy un desarrollador en constante aprendizaje. Me interesa construir soluciones útiles, aprender nuevas herramientas y colaborar en proyectos que generen impacto.</p>
+      <p>Desarrollador apasionado por construir <strong>APIs eficientes</strong> y servicios backend robustos. Me especializo en <strong>Go</strong>, con experiencia en MySQL, autenticación JWT y arquitecturas REST. Actualmente estudiando arquitecturas limpias, microservicios y buenas prácticas de testing.</p>
     </section>
 
-    <section>
-      <h2>🛠️ Tecnologías</h2>
-      <div class="skills">
-        <span class="skill">JavaScript</span>
-        <span class="skill">HTML</span>
-        <span class="skill">CSS</span>
-        <span class="skill">Node.js</span>
-        <span class="skill">Git</span>
-        <span class="skill">GitHub</span>
+    <section id="habilidades">
+      <h2>🛠️ Habilidades</h2>
+      <div class="skills-grid">
+        <div class="skill-cat">
+          <h3>Backend</h3>
+          <div class="skill-tags">
+            <span class="skill">Go</span>
+            <span class="skill">Node.js</span>
+            <span class="skill">REST APIs</span>
+            <span class="skill">JWT</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <h3>Bases de datos</h3>
+          <div class="skill-tags">
+            <span class="skill">MySQL</span>
+            <span class="skill">SQL</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <h3>Frontend</h3>
+          <div class="skill-tags">
+            <span class="skill">HTML5</span>
+            <span class="skill">CSS3</span>
+            <span class="skill">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-cat">
+          <h3>Herramientas</h3>
+          <div class="skill-tags">
+            <span class="skill">Git</span>
+            <span class="skill">GitHub</span>
+            <span class="skill">VS Code</span>
+            <span class="skill">GitHub Actions</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2>📂 Proyectos</h2>
+    <section id="experiencia">
+      <h2>💼 Experiencia</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Desarrollador Backend Junior</h3>
+          <p class="meta">📅 2026 - Presente</p>
+          <p>Iniciando mi camino profesional como desarrollador backend, aplicando buenas prácticas, control de versiones con Git y desarrollo de APIs REST.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Proyectos personales</h3>
+          <p class="meta">📅 2024 - 2026</p>
+          <p>Desarrollo de APIs REST en Go con autenticación JWT, integración con MySQL y prácticas de arquitectura limpia.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="educacion">
+      <h2>🎓 Educación</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Formación autodidacta</h3>
+          <p class="meta">📅 Continuo</p>
+          <p>Aprendizaje continuo a través de documentación oficial, cursos online y proyectos prácticos. MDN, freeCodeCamp, Go Tour.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos">
+      <h2>📂 Proyectos destacados</h2>
       <div class="projects">
         <div class="project">
-          <h3>practicas-js</h3>
-          <p>Ejercicios y prácticas de JavaScript</p>
-          <a href="https://github.com/ninjadiego/practicas-js" target="_blank">Ver repo →</a>
+          <h3>🔐 golang-jwt</h3>
+          <p>Implementación de autenticación con JSON Web Tokens en Go.</p>
+          <p class="tech">Go · JWT · REST</p>
+          <a href="https://github.com/ninjadiego/golang-jwt" target="_blank" rel="noopener">Ver código →</a>
         </div>
         <div class="project">
-          <h3>proyecto-inicial</h3>
-          <p>Repositorio base para mi primer proyecto de trabajo</p>
-          <a href="https://github.com/ninjadiego/proyecto-inicial" target="_blank">Ver repo →</a>
+          <h3>🗃️ API_REST_GO_MYSQL</h3>
+          <p>API REST en Go conectada a base de datos MySQL.</p>
+          <p class="tech">Go · MySQL · REST</p>
+          <a href="https://github.com/ninjadiego/API_REST_GO_MYSQL" target="_blank" rel="noopener">Ver código →</a>
+        </div>
+        <div class="project">
+          <h3>🧮 api-calculator-go</h3>
+          <p>API REST para operaciones matemáticas básicas.</p>
+          <p class="tech">Go · REST</p>
+          <a href="https://github.com/ninjadiego/api-calculator-go" target="_blank" rel="noopener">Ver código →</a>
+        </div>
+        <div class="project">
+          <h3>📚 practicas-js</h3>
+          <p>Ejercicios y prácticas de JavaScript con estructura organizada por temas.</p>
+          <p class="tech">JavaScript · Node.js</p>
+          <a href="https://github.com/ninjadiego/practicas-js" target="_blank" rel="noopener">Ver código →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h2>📫 Contacto</h2>
+      <p>¿Te interesa colaborar o tienes una oportunidad para mí? ¡Hablemos!</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="icon">🐙</div>
+          <a href="https://github.com/ninjadiego" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <div class="contact-card">
+          <div class="icon">💼</div>
+          <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="contact-card">
+          <div class="icon">✉️</div>
+          <a href="#">Email</a>
         </div>
       </div>
     </section>
 
     <footer>
-      <p>© 2026 Diego · Hecho con ❤️ y GitHub Pages</p>
-      <div class="social">
-        <a href="https://github.com/ninjadiego" target="_blank">GitHub</a>
-      </div>
+      <p>© 2026 Diego (ninjadiego) · Hecho con ❤️ y GitHub Pages</p>
+      <p style="margin-top:0.5rem; font-size:0.9rem;"><em>"Código limpio, commits claros y siempre aprendiendo."</em> 🥷</p>
     </footer>
   </div>
 </body>
