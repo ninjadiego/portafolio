@@ -43,3 +43,19 @@ Este proyecto está bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE
 ---
 
 ⭐ Si te gusta mi trabajo, ¡no dudes en dejarme una estrella!
+
+## 🗓️ Estado del proyecto
+
+Proyecto en desarrollo activo. Última actualización: 25 de abril de 2026.
+
+### Próximas mejoras
+
+- Añadir sección de blog personal con artículos técnicos.
+- Integrar formulario de contacto funcional.
+- Mejorar accesibilidad y rendimiento (Lighthouse 100).
+- Añadir modo claro/oscuro con persistencia en localStorage.
+- Internacionalización (ES/EN).
+
+## 🤝 Contribuciones
+
+Este es un portafolio personal, pero las sugerencias y propuestas de mejora son siempre bienvenidas. Si encuentras algún error o tienes una idea, abre un issue o envía un pull request.
